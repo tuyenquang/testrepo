@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>git-basic.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#git-very-basic">Git very basic</a>
+<ul>
+<li><a href="#introduction">INTRODUCTION</a></li>
+<li><a href="#working-with-git">WORKING WITH GIT</a></li>
+<li><a href="#common-scripts">COMMON SCRIPTS</a></li>
+<li><a href="#a-successful-git-branching-model">A SUCCESSFUL GIT BRANCHING MODEL</a></li>
+<li><a href="#references">REFERENCES</a></li>
+<li><a href="#practice">PRACTICE</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="git-very-basic">Git very basic</h1>
+<h2 id="introduction">INTRODUCTION</h2>
+<p><strong>What’s the problem?</strong></p>
+<ul>
+<li>
+<p>As teams develop software, it is common for multiple stages of the same software to be deployed in different sites.</p>
+</li>
+<li>
+<p>Bugs or features of the software are often only present in certain stages.</p>
+</li>
+<li>
+<p>Therefore, for the purposes of locating and fixing bugs, it is vitally important to be able to retrieve and run different stages of the software to determine in which stage the problem occurs</p>
+</li>
+</ul>
+<p><strong>What’s git?</strong></p>
+<p>Git is a free and open source distributed version control system (VCS) designed to handle everything from small to very large projects with speed and efficiency.</p>
+<p><strong>What’s version control system (VCS)?</strong> Version control systems are software tools that help software teams manage changes to source code over time. As development environments have accelerated, version control systems help software teams work faster and smarter</p>
+<p><strong>Why should you use git as a developer?</strong></p>
+<p><img src="https://wac-cdn.atlassian.com/dam/jcr:39ab5e67-39a7-4cd2-9cf4-98bc89dffd9a/01%20Feature%20Branch%20Workflow.svg?cdnVersion=2558" alt="Git for developers" title="Git Featured Branch"></p>
+<p>Feature branches provide an isolated environment for every change to your codebase.</p>
+<p><strong>How does git record changes overtime?</strong></p>
+<p><img src="https://git-scm.com/book/en/v2/images/snapshots.png" alt="Checkin over time" title="Stream of snapshots"></p>
+<ul>
+<li>
+<p>Every time you commit (or save the state of your project), Git basically takes a picture of what all your files look like at that moment.</p>
+</li>
+<li>
+<p>Git thinks about its data more like a stream of snapshots.</p>
+</li>
+</ul>
+<p><strong>Install git</strong></p>
+<p>On Windows: download and install from <a href="https://gitforwindows.org/">gitforwindows.org</a></p>
+<p>On Macs: install by HomeBrew</p>
+<pre class=" language-bash"><code class="prism  language-bash">brew  <span class="token function">install</span>  <span class="token function">git</span>
+</code></pre>
+<p>On Linux (Debian/Ubuntu):</p>
+<pre class=" language-bash"><code class="prism  language-bash"><span class="token function">sudo</span>  <span class="token function">apt-get</span>  update
+<span class="token function">sudo</span>  <span class="token function">apt-get</span>  <span class="token function">install</span>  <span class="token function">git</span>
+</code></pre>
+<p><strong>Configuration</strong></p>
+<p>Check whether git is installed</p>
+<pre class=" language-bash"><code class="prism  language-bash"><span class="token function">git</span>  --version
+</code></pre>
+<p>Config user’s information</p>
+<pre class=" language-bash"><code class="prism  language-bash"><span class="token function">git</span>  config  --global  user.name  <span class="token string">"Emma Paris"</span>
+<span class="token function">git</span>  config  --global  user.email  <span class="token string">"emma_paris@gmail.com"</span>
+</code></pre>
+<p>Check again</p>
+<pre class=" language-bash"><code class="prism  language-bash"><span class="token function">git</span>  config  --global  --list
+</code></pre>
+<h2 id="working-with-git">WORKING WITH GIT</h2>
+<ul>
+<li>
+<p>With Git, your’s files can have three states:</p>
+<ul>
+<li>
+<p><strong>Modified</strong> files have chaged but have not committed it to your database yet.</p>
+</li>
+<li>
+<p><strong>Staged</strong> your files have marked a modified files for the next commit snapshot.</p>
+</li>
+<li>
+<p><strong>Committed</strong> means that the data is safely stored in your local database.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Respectively, you need to remember four areas:</p>
+<ul>
+<li>
+<p><strong>Workspace area</strong> (working directory) area where you work</p>
+</li>
+<li>
+<p><strong>Staging area</strong> save current staged files</p>
+</li>
+<li>
+<p><strong>Local repository</strong> save commited files</p>
+</li>
+<li>
+<p><strong>Remote repository</strong> a copy of local repository saving in cloud (like github, gitlab, bitbucket…)</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://krishnaiitd.github.io/gitcommands/images/GitWorkflow-3.png" alt="Simple Git areas" title="Git areas"></p>
+<p><img src="https://media.licdn.com/dms/image/v2/D4D22AQHR7xLPiHK-zQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1702614832462?e=2147483647&amp;v=beta&amp;t=x9XK4zcBWq3CcUPvWqj9MyedTQAa1GH-23KCcoQJ7wI" alt="Git areas" title="Git areas"></p>
+<ul>
+<li>Common Workflow</li>
+</ul>
+<p><img src="https://git-scm.com/book/id/v2/images/small-team-flow.png" alt="Common Workflow" title="Common Workflow"></p>
+<h2 id="common-scripts">COMMON SCRIPTS</h2>
+<h3 id="script-1">Script 1</h3>
+<p>Script 1: Set up a local repo, link it to a remote repo and push your code to it</p>
+<ul>
+<li>
+<p><code>git init</code>: Initialize a repo locally</p>
+</li>
+<li>
+<p><code>git add .</code>: Add changes to staging area</p>
+</li>
+<li>
+<p><code>git status</code>: Check status</p>
+</li>
+<li>
+<p><code>git commit -m "initial commit</code>: Commit chanages with a message</p>
+</li>
+<li>
+<p><code>git remote add origin https://github.com/example.git</code>: add a remote repo with name <strong>origin</strong></p>
+</li>
+<li>
+<p><code>git push --set-upstream origin master</code>: push your code to the remote branch</p>
+</li>
+</ul>
+<h3 id="script-2">Script 2</h3>
+<p>Script 2: Clone a remote repo and develop from it</p>
+<ul>
+<li>
+<p><code>git clone https://github.com/example.git</code>: clone from a remote repo</p>
+</li>
+<li>
+<p><code>git checkout -b "featured_branch</code>: cresat and switch to a branch name <strong>featured_branch</strong></p>
+</li>
+<li>
+<p><code>git branch</code>: check the current branch</p>
+</li>
+<li>
+<p><code>git add new_feature.py</code>: add/change a new file</p>
+</li>
+<li>
+<p><code>git commit -m "Add a new file"</code>: commit changes</p>
+</li>
+<li>
+<p><code>git checkout master</code>: switch to <strong>master</strong> branch</p>
+</li>
+<li>
+<p><code>git merge featured_branch</code>: merge from <strong>featured_branch</strong> (to the current branch)</p>
+</li>
+<li>
+<p>``:</p>
+</li>
+</ul>
+<h3 id="script-3">Script 3</h3>
+<p>Script 3: Fork and Pull requests</p>
+<ul>
+<li>
+<p>Use git commands to manage upstream repositories</p>
+</li>
+<li>
+<p>Create a personal access token</p>
+</li>
+<li>
+<p>Fork existing repository using the UI</p>
+</li>
+<li>
+<p>Clone forked repository in the lab environment</p>
+</li>
+<li>
+<p>Create a new branch</p>
+</li>
+<li>
+<p>Make changes locally</p>
+</li>
+<li>
+<p>Add and commit to the local branch</p>
+</li>
+<li>
+<p>Push changes to the forked repository</p>
+</li>
+<li>
+<p>Create a pull request to the upstream repository</p>
+</li>
+</ul>
+<h2 id="a-successful-git-branching-model">A SUCCESSFUL GIT BRANCHING MODEL</h2>
+<p>In 2010, Vincent Driessen recommended <a href="https://nvie.com/posts/a-successful-git-branching-model/">A successful Git branching model</a></p>
+<p><img src="https://nvie.com/img/git-model@2x.png" alt="A Successfult Git Branching Model" title="A Successfult Git Branching Model"></p>
+<p>Branches:</p>
+<ul>
+<li>
+<p><strong>develop</strong> branch serves as the branch for ongoing development. All feature branches are merged into this branch. Your team should always keep the develop branch stable.</p>
+</li>
+<li>
+<p><strong>feature</strong> branch is used to develop new features or enhancements. They branch off from the develop branch and are merged back when the feature is complete.</p>
+</li>
+<li>
+<p><strong>master/main</strong> branch represents the production-ready code. It should only contain stable, bug-free code.</p>
+</li>
+<li>
+<p><strong>release</strong> branch is used for preparing a new production release. Once all features for a release have been added, this branch is merged into both master and develop branches.</p>
+</li>
+<li>
+<p><strong>hotfix</strong> branch is created to quickly fix critical bugs found in the production code. They branch off from the main branch and are merged back into both master and develop branches.</p>
+</li>
+</ul>
+<h2 id="references">REFERENCES</h2>
+<ul>
+<li>
+<p><a href="https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F">Getting Started - What is Git?</a></p>
+</li>
+<li>
+<p><a href="https://www.atlassian.com/git/tutorials/what-is-version-control">What’s Version Conctrol System?</a></p>
+</li>
+<li>
+<p><a href="https://nvie.com/posts/a-successful-git-branching-model/">A successful Git branching model</a></p>
+</li>
+</ul>
+<h2 id="practice">PRACTICE</h2>
+<ul>
+<li>
+<p><a href="https://author-ide.skills.network/render?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZF9pbnN0cnVjdGlvbnNfdXJsIjoiaHR0cHM6Ly9jZi1jb3Vyc2VzLWRhdGEuczMudXMuY2xvdWQtb2JqZWN0LXN0b3JhZ2UuYXBwZG9tYWluLmNsb3VkL0lCTURldmVsb3BlclNraWxsc05ldHdvcmstQ0QwMTAxRU4tU2tpbGxzTmV0d29yay9sYWJzL0dpdEh1YkxhYnMvR2l0SHViMV9HZXR0aW5nX1N0YXJ0ZWQubWQiLCJ0b29sX3R5cGUiOiJpbnN0cnVjdGlvbmFsLWxhYiIsImF0bGFzX2ZpbGVfaWQiOjk0NTIsImFkbWluIjpmYWxzZSwiaWF0IjoxNzI5ODkzMDgwfQ.9YO4rKKpkb9XLsWKGQo-UY5PNIRJlZVsP2SjgCuemdA">Lab 1: GitHub Sign Up and Create Repo</a></p>
+</li>
+<li>
+<p><a href="https://author-ide.skills.network/render?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZF9pbnN0cnVjdGlvbnNfdXJsIjoiaHR0cHM6Ly9jZi1jb3Vyc2VzLWRhdGEuczMudXMuY2xvdWQtb2JqZWN0LXN0b3JhZ2UuYXBwZG9tYWluLmNsb3VkL0lCTURldmVsb3BlclNraWxsc05ldHdvcmstQ0QwMTAxRU4tU2tpbGxzTmV0d29yay9sYWJzL0dpdEh1YkxhYnMvR2l0SHViMl9CcmFuY2hfTWVyZ2UubWQiLCJ0b29sX3R5cGUiOiJpbnN0cnVjdGlvbmFsLWxhYiIsImF0bGFzX2ZpbGVfaWQiOjgzNDMsImFkbWluIjpmYWxzZSwiaWF0IjoxNzI5ODkxMDA3fQ.zPTxhZrnl0T0PSDsqMA7Z5Tgxw6lSXdnqOQdzaakCpg">Lab 2: Branching and Merging (Web UI)</a></p>
+</li>
+<li>
+<p><a href="https://author-ide.skills.network/render?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZF9pbnN0cnVjdGlvbnNfdXJsIjoiaHR0cHM6Ly9jZi1jb3Vyc2VzLWRhdGEuczMudXMuY2xvdWQtb2JqZWN0LXN0b3JhZ2UuYXBwZG9tYWluLmNsb3VkL0lCTS1DRDAxMzFFTi1Ta2lsbHNOZXR3b3JrL2xhYnMvZ2l0LWZvcmstcHItY29tbWFuZHMvaW5zdHJ1Y3Rpb25zLm1kIiwidG9vbF90eXBlIjoidGhlaWEiLCJhdGxhc19maWxlX2lkIjoxODM5NSwiYWRtaW4iOmZhbHNlLCJpYXQiOjE3Mjk5MDg1MDV9.3alVZsofRhxj66k_Q4rCuN-GMo1TPF8_xAkN8uCVhPs">Lab 3: Cloning and Forking GitHub Projects</a></p>
+</li>
+<li>
+<p><a href="https://author-ide.skills.network/render?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZF9pbnN0cnVjdGlvbnNfdXJsIjoiaHR0cHM6Ly9jZi1jb3Vyc2VzLWRhdGEuczMudXMuY2xvdWQtb2JqZWN0LXN0b3JhZ2UuYXBwZG9tYWluLmNsb3VkL0lCTURldmVsb3BlclNraWxsc05ldHdvcmstQ0QwMTAxRU4tU2tpbGxzTmV0d29yay9sYWJzL0dpdEh1YkxhYnMvR2l0QmFzaF9JbnN0YWxsLm1kIiwidG9vbF90eXBlIjoiaW5zdHJ1Y3Rpb25hbC1sYWIiLCJhdGxhc19maWxlX2lkIjoxMTc5MywiYWRtaW4iOmZhbHNlLCJpYXQiOjE3Mjk4OTU5MzB9.I8Rz1fcAGNOHZLhDhuDE8Lo6JN5vzo6-mnMfkQCqC50">Lab 4: GitBash Installation on Desktop</a></p>
+</li>
+<li>
+<p><a href="https://author-ide.skills.network/render?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZF9pbnN0cnVjdGlvbnNfdXJsIjoiaHR0cHM6Ly9jZi1jb3Vyc2VzLWRhdGEuczMudXMuY2xvdWQtb2JqZWN0LXN0b3JhZ2UuYXBwZG9tYWluLmNsb3VkL0lCTURldmVsb3BlclNraWxsc05ldHdvcmstQ0QwMTAxRU4tU2tpbGxzTmV0d29yay9sYWJzL0dpdEh1YkxhYnMvU1NIX0tleS5tZCIsInRvb2xfdHlwZSI6Imluc3RydWN0aW9uYWwtbGFiIiwiYXRsYXNfZmlsZV9pZCI6MTE3OTEsImFkbWluIjpmYWxzZSwiaWF0IjoxNzI5ODk1OTAxfQ.Ws18N4BulL4_PEPwA33ytRcXZrGuisjAP_yo9taPGSA">Lab 5: SSH Key Creation</a></p>
+</li>
+<li>
+<p><a href="https://author-ide.skills.network/render?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZF9pbnN0cnVjdGlvbnNfdXJsIjoiaHR0cHM6Ly9jZi1jb3Vyc2VzLWRhdGEuczMudXMuY2xvdWQtb2JqZWN0LXN0b3JhZ2UuYXBwZG9tYWluLmNsb3VkL0lCTURldmVsb3BlclNraWxsc05ldHdvcmstQ0QwMTAxRU4tU2tpbGxzTmV0d29yay9sYWJzL0dpdEh1YkxhYnMvR2l0SHViX0FkZFNTSHRvUmVwby5tZCIsInRvb2xfdHlwZSI6Imluc3RydWN0aW9uYWwtbGFiIiwiYXRsYXNfZmlsZV9pZCI6MTE3ODMsImFkbWluIjpmYWxzZSwiaWF0IjoxNzI5ODk1ODMzfQ.aE8ZxlmbjrGVmPMOpH9G8pEtifMPORm8vGv47pCUOx8">Lab 6: Add SSH to Repo</a></p>
+</li>
+<li>
+<p><a href="https://author-ide.skills.network/render?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZF9pbnN0cnVjdGlvbnNfdXJsIjoiaHR0cHM6Ly9jZi1jb3Vyc2VzLWRhdGEuczMudXMuY2xvdWQtb2JqZWN0LXN0b3JhZ2UuYXBwZG9tYWluLmNsb3VkL0lCTURldmVsb3BlclNraWxsc05ldHdvcmstQ0QwMTAxRU4tU2tpbGxzTmV0d29yay9sYWJzL0dpdEh1YkxhYnMvR2l0X0Nsb25lX0NvbW1pdF9QdXNoLm1kIiwidG9vbF90eXBlIjoiaW5zdHJ1Y3Rpb25hbC1sYWIiLCJhdGxhc19maWxlX2lkIjoxMTc4NywiYWRtaW4iOmZhbHNlLCJpYXQiOjE3Mjk4OTU4OTJ9.a2mxEqxXReBbLV_VooQTZk_Stuu0xWZHfIqBK644Kyk">Lab 7: Using Git from Your Own Desktop</a></p>
+</li>
+</ul>
+<hr>
+
+    </div>
+  </div>
+</body>
+
+</html>
